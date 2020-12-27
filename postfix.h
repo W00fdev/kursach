@@ -224,6 +224,8 @@ void read_expression(char* in, char* out, bool getline_input) {
                 if (out[out_index - 1] != ' ')
                     out[out_index++] = s;
             }
+        } else if (s != '\0') {
+            throw std::invalid_argument("Unknown symbol");
         }
     }
 

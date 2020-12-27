@@ -102,20 +102,35 @@ TEST(calculator_test, exception_test) {
     char* out_1 = new char[128];
     char* out_2 = new char[128];
     char* out_3 = new char[128];
+    char* out_4 = new char[128];
+    char* out_5 = new char[128];
 
+    // Bracer error
     const char* in_1 = "( ( )";
     ASSERT_ANY_THROW(read_expression(in_1, out_1));
 
+    // func name (cos != co)
     const char* in_2 = "pi*3-056+10*co";
     ASSERT_ANY_THROW(read_expression(in_2, out_2));
 
+    // don't have operands but only operators
     const char* in_3 = "* / +";
     read_expression(in_3, out_3);
     ASSERT_ANY_THROW(compute_expression(out_3));
 
+    // don't have such operand
+    const char* in_4 = "1 % 4";
+    ASSERT_ANY_THROW(read_expression(in_4, out_4));
+
+    // + is a binary operator not unary
+    const char* in_5 = "1 + ";
+    read_expression(in_5, out_5);
+    ASSERT_ANY_THROW(compute_expression(out_5));
 
     delete[] out_1;
     delete[] out_2;
     delete[] out_3;
+    delete[] out_4;
+    delete[] out_5;
 }
 
